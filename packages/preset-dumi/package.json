@@ -1,6 +1,6 @@
 {
-  "name": "@umijs/preset-dumi",
-  "version": "1.1.23",
+  "name": "ds-preset-dumi",
+  "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
   "files": [
@@ -8,14 +8,15 @@
   ],
   "repository": {
     "type": "git",
-    "url": "http://github.com/umijs/dumi",
+    "url": "https://github.com/sdhr27/dumi",
     "directory": "preset-dumi"
   },
-  "homepage": "http://github.com/umijs/dumi",
-  "bugs": "http://github.com/umijs/dumi/issues",
+  "homepage": "http://github.com/sdhr27/dumi",
+  "bugs": "http://github.com/sdhr27/dumi/issues",
   "authors": [
     "ycjcl868 <chaolinjin@gmail.com> (https://github.com/ycjcl868)",
-    "PeachScript <scdzwyxst@gmail.com> (https://github.com/PeachScript)"
+    "PeachScript <scdzwyxst@gmail.com> (https://github.com/PeachScript)",
+    "djl <516320227@qq.com> (https://github.com/sdhr27)"
   ],
   "dependencies": {
     "@babel/core": "^7.7.2",
