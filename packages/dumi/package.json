@@ -1,7 +1,7 @@
 {
-  "name": "dumi",
-  "version": "1.1.23",
-  "description": "dumi",
+  "name": "dsdumi",
+  "version": "1.0.1",
+  "description": "dumi in ds",
   "main": "index.js",
   "module": "index.module.js",
   "types": "index.d.ts",
@@ -14,14 +14,15 @@
   ],
   "repository": {
     "type": "git",
-    "url": "http://github.com/umijs/dumi",
+    "url": "https://github.com/sdhr27/dumi.git",
     "directory": "dumi"
   },
-  "homepage": "http://github.com/umijs/dumi",
-  "bugs": "http://github.com/umijs/dumi/issues",
+  "homepage": "https://github.com/sdhr27/dumi.git",
+  "bugs": "https://github.com/sdhr27/dumi/issues",
   "authors": [
     "ycjcl868 <chaolinjin@gmail.com> (https://github.com/ycjcl868)",
-    "PeachScript <scdzwyxst@gmail.com> (https://github.com/PeachScript)"
+    "PeachScript <scdzwyxst@gmail.com> (https://github.com/PeachScript)",
+    "djl <516320227@qq.com> (https://github.com/sdhr27)"
   ],
   "dependencies": {
     "@umijs/preset-dumi": "1.1.23",
