@@ -1,6 +1,6 @@
 {
   "name": "dsdumi",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "dumi in ds",
   "main": "index.js",
   "module": "index.module.js",
@@ -26,6 +26,7 @@
   ],
   "dependencies": {
     "@umijs/preset-dumi": "1.1.23",
+    "ds-preset-dumi": "^1.0.0",
     "umi": "^3.0.0"
   },
   "license": "MIT"
