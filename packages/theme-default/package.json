@@ -30,6 +30,7 @@
   },
   "peerDependencies": {
     "@umijs/preset-dumi": "1.x",
+    "ds-preset-dumi": "1.x",
     "react": "^16.13.1"
   },
   "license": "MIT"

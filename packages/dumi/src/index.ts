@@ -1,7 +1,7 @@
 const { fork } = require('child_process');
 
 module.exports = () => {
-  process.env.UMI_PRESETS = require.resolve('@umijs/preset-dumi');
+  process.env.UMI_PRESETS = require.resolve('ds-preset-dumi');
 
   // start umi use child process
   const child = fork(require.resolve('umi/bin/umi'), [...(process.argv.slice(2) || [])], {

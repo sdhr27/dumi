@@ -36,6 +36,16 @@ export default (filePath: string, componentName?: string) => {
             // use parsed component name from remark pipeline as default export's displayName
             return DEFAULT_EXPORTS.includes(source.getName()) ? componentName : undefined;
           },
+          propFilter: (prop) => {
+            if (prop.declarations !== undefined && prop.declarations.length > 0) {
+              const hasPropAdditionalDescription = prop.declarations.find((declaration) => {
+                return !declaration.fileName.includes("node_modules");
+              });
+
+              return Boolean(hasPropAdditionalDescription);
+            }
+            return true;
+          },
         },
       )
       .parse(filePath)
