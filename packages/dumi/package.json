@@ -1,6 +1,6 @@
 {
   "name": "dsdumi",
-  "version": "1.0.3",
+  "version": "1.0.3-1",
   "description": "dumi in ds",
   "main": "index.js",
   "module": "index.module.js",
