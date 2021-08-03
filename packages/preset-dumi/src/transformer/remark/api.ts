@@ -9,7 +9,7 @@ import parser from '../../api-parser';
 import { getModuleResolvePath } from '../../utils/moduleResolver';
 import { listenFileOnceChange } from '../../utils/watcher';
 import ctx from '../../context';
-import type { IApiExtraElement } from '../../api-parser'
+import type { IApiExtraElement } from '../../api-parser';
 import type { IDumiUnifiedTransformer, IDumiElmNode } from '.';
 
 function applyApiData(identifier: string, definitions: ReturnType<typeof parser>) {
@@ -131,16 +131,38 @@ function watchComponentUpdate(absPath: string, apiElements: IApiExtraElement, id
   });
 }
 
-function extractProperties(nodeProperties: IDumiElmNode["properties"]) {
+/**
+ * transformBoolean from any
+ */
+function transformBoolean(strBoolean: any) {
+  if (strBoolean === 'true' || strBoolean === '') {
+    return true;
+  }
+  if (strBoolean === 'false') {
+    return false;
+  }
+  return undefined;
+}
+
+function extractProperties(nodeProperties: IDumiElmNode['properties']) {
   // https://github.com/umijs/dumi/issues/513
-  // 1、默认行为改进：过滤 HTML 标签属性
-  // 2、新增 API：
-  //  a. excludes string[]：过滤匹配到的属性，可以支持正则
-  //  b. ignoreNodeModules boolean：忽略 node_modules 下继承来的属性
   // get default config
-  const defaultConfig = ctx.umi?.config.apiParser;
+  const defaultConfig = ctx.opts?.apiParser;
+  const { excludes, ignorenodemodules, skippropswithoutdoc } = nodeProperties;
   // nodeProperties have higher priority
-  return { ignoreNodeModules: false, ...defaultConfig, ...nodeProperties };
+  const finalProperties = {
+    ...defaultConfig,
+    excludes: excludes ? JSON.parse(excludes) : defaultConfig?.excludes,
+    ignoreNodeModules:
+      ignorenodemodules !== undefined
+        ? transformBoolean(ignorenodemodules)
+        : defaultConfig?.ignoreNodeModules,
+    skipPropsWithoutDoc:
+      skippropswithoutdoc !== undefined
+        ? transformBoolean(skippropswithoutdoc)
+        : defaultConfig?.skipPropsWithoutDoc,
+  };
+  return finalProperties;
 }
 
 /**
