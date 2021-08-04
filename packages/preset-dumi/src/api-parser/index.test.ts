@@ -6,8 +6,8 @@ import parser from '.';
 const rawPath = path.join(__dirname, 'fixtures', 'raw');
 const expectPath = path.join(__dirname, 'fixtures', 'expect');
 
-function assertResult(filename) {
-  expect(winEOL(JSON.stringify(parser(path.join(rawPath, filename)), null, 2))).toEqual(
+function assertResult(filename, extraProperties?) {
+  expect(winEOL(JSON.stringify(parser(path.join(rawPath, filename), undefined, extraProperties), null, 2))).toEqual(
     winEOL(
       fs
         .readFileSync(path.join(expectPath, `${path.basename(filename, '.tsx')}.json`), 'utf8')
