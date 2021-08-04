@@ -19,16 +19,21 @@ const DEFAULT_EXPORTS = [
 
 export type IApiDefinition = AtomPropsDefinition;
 
-export type IApiExtraElement = IDumiOpts['apiParser'];
+export type IApiExtraElement = {
+  excludes?: IDumiOpts['apiParser']['excludes'];
+  ignorenodemodules?: IDumiOpts['apiParser']['ignoreNodeModules'];
+  skippropswithoutdoc?: IDumiOpts['apiParser']['skipPropsWithoutDoc'];
+}
 
-export default (filePath: string, componentName?: string, apiElements: IApiExtraElement = {}) => {
+export default (filePath: string, parseOpts: IApiExtraElement = {}, componentName?: string) => {
   const globalConfig = ctx.opts?.apiParser;
   const {
     excludes = globalConfig?.excludes,
-    ignoreNodeModules = globalConfig?.ignoreNodeModules,
-    skipPropsWithoutDoc = globalConfig?.skipPropsWithoutDoc,
-    propFilter = globalConfig?.propFilter,
-  } = apiElements;
+    ignorenodemodules = globalConfig?.ignoreNodeModules,
+    skippropswithoutdoc = globalConfig?.skipPropsWithoutDoc,
+  } = parseOpts;
+  const ignoreNodeModules = ignorenodemodules === true;
+  const skipPropsWithoutDoc = skippropswithoutdoc === true;
   let definitions: IApiDefinition = cacher.get(filePath);
   const isDefaultRegExp = new RegExp(`^${componentName}$`, 'i');
 
@@ -48,7 +53,7 @@ export default (filePath: string, componentName?: string, apiElements: IApiExtra
             return DEFAULT_EXPORTS.includes(source.getName()) ? componentName : undefined;
           },
           propFilter:
-            propFilter ||
+            globalConfig?.propFilter ||
             (prop => {
               let passFlag = true;
               if (
