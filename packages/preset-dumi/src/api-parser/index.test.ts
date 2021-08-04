@@ -48,7 +48,7 @@ describe('api parser', () => {
   it('should guess component name correctly', () => {
     expect(parser(path.join(rawPath, 'guess', 'FileName.tsx'))).toHaveProperty('FileName');
     expect(
-      parser(path.join(rawPath, 'guess', 'NestSrc', 'src', 'index.tsx'), undefined, 'NestSrc'),
+      parser(path.join(rawPath, 'guess', 'NestSrc', 'src', 'index.tsx'), 'NestSrc'),
     ).toHaveProperty('default');
   });
 });

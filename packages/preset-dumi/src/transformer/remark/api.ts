@@ -119,7 +119,7 @@ function watchComponentUpdate(absPath: string, componentName: string, identifier
     let definitions: ReturnType<typeof parser>;
 
     try {
-      definitions = parser(absPath, parseOpts, componentName);
+      definitions = parser(absPath, componentName, parseOpts);
     } catch (err) {
       /* noting */
     }
@@ -141,17 +141,17 @@ export default function api(): IDumiUnifiedTransformer {
       if (is(node, 'API') && !node._dumi_parsed) {
         let identifier: string;
         let definitions: ReturnType<typeof parser>;
-        const parseOpts = parseElmAttrToProps(node.properties);
+        const parsedAttrs = parseElmAttrToProps(node.properties);
         if (has(node, 'src')) {
           const src = node.properties.src || '';
           const absPath = path.join(path.dirname(this.data('fileAbsPath')), src);
           // guess component name if there has no identifier property
           const componentName = node.properties.identifier || guessComponentName(absPath);
-          definitions = parser(absPath, parseOpts, componentName);
+          definitions = parser(absPath, componentName, parsedAttrs);
           identifier = componentName || src;
 
           // trigger listener to update previewer props after this file changed
-          watchComponentUpdate(absPath, componentName, identifier, parseOpts);
+          watchComponentUpdate(absPath, componentName, identifier, parsedAttrs);
         } else if (vFile.data.componentName) {
           try {
             const sourcePath = getModuleResolvePath({
@@ -159,11 +159,11 @@ export default function api(): IDumiUnifiedTransformer {
               sourcePath: path.dirname(this.data('fileAbsPath')),
               silent: true,
             });
-            definitions = parser(sourcePath, parseOpts, vFile.data.componentName);
+            definitions = parser(sourcePath, vFile.data.componentName, parsedAttrs);
             identifier = vFile.data.componentName;
 
             // trigger listener to update previewer props after this file changed
-            watchComponentUpdate(sourcePath, vFile.data.componentName, identifier, parseOpts);
+            watchComponentUpdate(sourcePath, vFile.data.componentName, identifier, parsedAttrs);
           } catch (err) {
             /* noting */
           }
